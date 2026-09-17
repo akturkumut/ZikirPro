@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.utoprak.zikirPro"
     },
     "web": {
       "output": "static",
@@ -37,15 +38,20 @@
       [
         "expo-navigation-bar",
         {
-          "enforceContrast": true,
-          "hidden": false,
-          "style": "light"
+          "position": "absolute",
+          "hidden": true,
+          "behavior": "overlay-swipe"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "expo-navigation-bar": {
+        "hidden": true
+      }
     }
   }
 }

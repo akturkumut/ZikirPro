@@ -22,6 +22,7 @@ export const initDatabase = () : void => {
             target_count INTEGER,
             description TEXT,
             is_favorite INTEGER NOT NULL DEFAULT 0,
+            favourited_at DATETIME,
             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
     `);
@@ -35,8 +36,8 @@ export const initDatabase = () : void => {
 export const addRow = (log :{
     name:string;
     count: number;
-    target_count?: number;
-    description?: string ;
+    target_count?: number| null;
+    description?: string | null ;
 }): number | null => {
     try {
         const result = db.runSync(`INSERT INTO zikir_logs 
@@ -59,7 +60,15 @@ export const addRow = (log :{
 };
 export const getAllRows = () :ZikirLog [] | null =>{
     try {
-        return db.getAllSync<ZikirLog>('SELECT * FROM zikir_logs ORDER BY is_favorite DESC, updated_at DESC;');
+        return db.getAllSync<ZikirLog>('SELECT * FROM zikir_logs ORDER BY is_favorite DESC, favourited_at DESC, updated_at DESC;');
+    } catch (error) {
+        console.log('Tüm verileri çekme işlemi başarısız:', error);
+        return null;
+    }
+};
+export const getAllRowsNoFav = () :ZikirLog [] | null =>{
+    try {
+        return db.getAllSync<ZikirLog>('SELECT * FROM zikir_logs ORDER BY updated_at DESC;');
     } catch (error) {
         console.log('Tüm verileri çekme işlemi başarısız:', error);
         return null;
@@ -83,8 +92,8 @@ export const toggleFavorite = (id : number, currentStatus: number) => {
     try {
         const newStatus = currentStatus ===1 ? 0: 1;
         const now= new Date().toISOString();
-        const result = db.runSync(`UPDATE zikir_logs SET is_favorite = ?,updated_At = ? WHERE id = ?`,
-        [newStatus,now,id]
+        const result = db.runSync(`UPDATE zikir_logs SET is_favorite = ?,favourited_at = ? WHERE id = ?`,
+        [newStatus,newStatus === 1 ? now : null,id]
     );
 
     console.log(`ID: ${id} favori durumu güncellendi: ${newStatus}`);
@@ -108,3 +117,9 @@ export const updateCount = (id: number, newCount: number): boolean => {
     return false;
   }
 };
+// modül ilk import edildiğinde bir kez çalışır
+initDatabase();
+
+export const dropDb = () => {
+    db.execSync(`DROP TABLE zikir_logs`);
+}
