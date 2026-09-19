@@ -82,7 +82,7 @@ const handleZikirAzalt = () => updateZikirCount(-1);
       </View>
 
       <View style={[styles.cardx, {width:'100%', height:'40%',justifyContent:'space-between'}]}>
-        <View style={{flexDirection:'column', backgroundColor:'#00000040',justifyContent:'center'}}>
+        <View style={{flexDirection:'column', justifyContent:'center'}}>
           <TouchableOpacity onPress={controlledDecrementIndex}>
             <Text style={{fontSize:42, color:'white'}}>{"<"}</Text>
           </TouchableOpacity>
@@ -92,13 +92,13 @@ const handleZikirAzalt = () => updateZikirCount(-1);
                   <Text style={styles.buttonText}>Zikir Çek</Text>
                 </TouchableOpacity>
           </View>
-        <View style={{flexDirection:'column', backgroundColor:'#00000040',justifyContent:'center'}}>
+        <View style={{flexDirection:'column', justifyContent:'center'}}>
           <TouchableOpacity onPress={controlledIncrementIndex}>
             <Text style={{fontSize:42, color:'white'}}>{">"}</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{alignItems:'center', backgroundColor:'#00000040'}}>
+      <View style={{alignItems:'center'}}>
         <TouchableOpacity onPress={handleZikirAzalt}>
             <Text style={{fontSize:20, color:'white'}}>Azalt</Text>
           </TouchableOpacity>
@@ -119,19 +119,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     padding: 16,
-    backgroundColor: 'rgba(0,0,0,0.15)',
-    borderWidth:1,
-    borderColor:'rgba(255,255,255,0.4)',
-    borderRadius: 12,
     marginBottom:16 },
     cardx: { 
     flexDirection: 'row',
     gap: 12,
     padding: 16,
-    backgroundColor: 'rgba(0,0,0,0.15)',
-    borderWidth:1,
-    borderColor:'rgba(255,255,255,0.4)',
-    borderRadius: 12,
     marginBottom:16 },
 
     button: {

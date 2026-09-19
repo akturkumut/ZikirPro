@@ -57,7 +57,7 @@ export default function ZikirlerScreen() {
 
   return (
     <ImageBackground
-    source={require("@/assets/images/background-zikirler.jpg")}
+    source={require("@/assets/images/background-zikirler1.jpg")}
     style={styles.backgroundImage}>
       <View style= {{flexDirection: 'row', justifyContent:'flex-end',marginTop: 30, marginRight:24 }}>
         <TouchableOpacity onPress={informAlert} style={{width:44, height:44,borderRadius: 22,backgroundColor:'rgba(255,255,255,0.15)', borderWidth:1, borderColor:'rgba(255,255,255,0.4)', alignItems:'center', justifyContent:'center'}}><Text style={{color:'white', fontSize:24}}>?</Text></TouchableOpacity>
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
   },
   list: { padding: 16, paddingBottom: 68, flexGrow: 1 },
   card: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 16,
-          backgroundColor: 'rgba(255,255,255,0.15)', borderWidth:1, borderColor:'rgba(255,255,255,0.4)', borderRadius: 12, marginBottom:16 },
-  name: { color: 'white' ,fontSize: 16, fontWeight: '600' },
-  desc: { fontSize: 13, color: '#666', marginTop: 2 },
-  count: {color: 'white', fontSize: 18, fontWeight: '700' },
-  star: { fontSize: 22, color: '#f0a500' },
+          backgroundColor: 'rgba(255,255,255,0.15)', borderWidth:1, borderColor:'rgba(0,0,0,0.15)', borderRadius: 12, marginBottom:16 },
+  name: { fontSize: 20, fontWeight: '600' },
+  desc: { fontSize: 13, marginTop: 2 },
+  count: { fontSize: 18, fontWeight: '700' },
+  star: { fontSize: 22, color: '#f0a500',fontWeight: '900' },
   sep: { height: 10 },
   empty: { textAlign: 'center', marginTop: 40, color: '#888' },
   header: { fontSize: 24, fontWeight: '700', marginBottom: 16 },

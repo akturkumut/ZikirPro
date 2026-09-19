@@ -1,7 +1,7 @@
 import { addRow } from '@/db';
 import { ImageBackground } from 'expo-image';
 import { useState } from 'react';
-import { Alert, Button, Keyboard, StyleSheet, TextInput } from 'react-native';
+import { Alert, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function newScreen() {
   const [zikirName, setZikirName] = useState('');
@@ -40,14 +40,14 @@ export default function newScreen() {
       style={styles.input}
       value= {zikirName}
       placeholder='Zikir Adı'
-      placeholderTextColor={'#ffffff'}
+      placeholderTextColor={'#000'}
       onChangeText={(val)=>{setZikirName(val)}}
       />
       <TextInput
         style={styles.input}
         value={ustSinir}
         placeholder='Üst Sınır'
-        placeholderTextColor={'#ffffff'}
+        placeholderTextColor={'#000'}
         inputMode='numeric'
         maxLength={9}
         onChangeText={(val) => setUstSinir(val.replace(/[^0-9]/g, ''))}
@@ -56,15 +56,17 @@ export default function newScreen() {
       style={styles.fazilet}
       value={fazilet}
       placeholder='Fazileti - (Boş bırakılabilir)'
-      placeholderTextColor={'#ffffff'}
+      placeholderTextColor={'#000'}
       multiline
       onChangeText={(val)=>{setFazilet(val)}}
       />
-      <Button 
-      title='Kaydet'
-      color={'#46967d4d'}
+    <TouchableOpacity
+      style={styles.saveButton}
+      activeOpacity={0.7}
       onPress={handlesubmit}
-      ></Button>
+    >
+      <Text style={{color:'#000', fontSize:18}}>Kaydet</Text>
+    </TouchableOpacity>
 
     </ImageBackground>
   )
@@ -79,28 +81,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    color:'white',
-    height: 40,
+    height: 50,
     width: 160,
     margin: 12,
     borderWidth: 1,
     borderRadius: 60,
-    borderColor:'white',
+    borderColor:'rgba(255,255,255,0.15)',
     padding: 10,
-    backgroundColor: '#ffffff20',
-    fontSize: 16
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    fontSize: 18
   },
   fazilet: {
-    color:'white',
-    height: 100,
+    height: 120,
     width: 160,
     borderWidth: 1,
     borderRadius: 30,
-    borderColor:'white',
+    borderColor:'rgba(255,255,255,0.15)',
     margin:12,
     marginBottom: 24,
     padding: 10,
-    backgroundColor: '#ffffff20',
+    backgroundColor: 'rgba(255,255,255,0.15)',
     fontSize: 16,
-  }
+    fontWeight: '400'
+  },
+  saveButton: {
+  width: 160,
+  height: 48,
+  borderRadius: 60,
+  backgroundColor: 'rgba(255,255,255,0.15)',
+  borderWidth: 1,
+  borderColor:'rgba(255,255,255,0.15)',
+  alignItems: 'center',
+  justifyContent: 'center'
+}
 })

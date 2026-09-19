@@ -1,4 +1,3 @@
-import { dropDb } from '@/db';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { Dimensions, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -15,7 +14,7 @@ export default function Index() {
 
 
     <ImageBackground
-    source={require('../../assets/images/background-main-1.jpg')}
+    source={require('../../assets/images/background-main.jpg')}
     style={styles.backgroundImage}
     resizeMode="cover"
     >
@@ -41,11 +40,6 @@ export default function Index() {
         onPress={()=>{router.push("/zikir")}}
         >
           <Text style={styles.primaryButtonText}>Zikir Çek</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={[styles.button,styles.primaryButton]}
-        onPress={dropDb}>
-          <Text>Sil</Text>
         </TouchableOpacity>
       </View>
 </ImageBackground>
@@ -79,39 +73,13 @@ buttonText: {
   fontWeight: '600',   // Metni kalınlaştırır (Semi-bold)
 },
 primaryButton: {
-    backgroundColor: '#05966920', // Seçtiğiniz zümrüt yeşili
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    borderColor: '#F9FAFB',
+    backgroundColor: '#ffffff20', // Seçtiğiniz zümrüt yeşili
+    borderColor: '#F9FAFB40',
     borderWidth: 1
   },
   primaryButtonText: {
-    color: '#F9FAFB',
+    color: '#F9FAFBDD',
     fontSize: width * 0.042,
     fontWeight: '600',
-  },// 2. Buton Stilleri (Buzlu cam / Yarı saydam)
-  glassButton: {
-    backgroundColor: '#05966920',
-    borderWidth: 1,
-    borderColor: '#F9FAFB',
-  },
-  glassButtonText: {
-    color: '#FFFFFF',
-    fontSize: width * 0.042,
-    fontWeight: '600',
-  },
-  // 3. Buton Stilleri (Outline)
-  outlineButton: {
-    backgroundColor: '#05966920',
-    borderWidth: 1,
-    borderColor: '#F9FAFB',
-  },
-  outlineButtonText: {
-    color: '#F9FAFB', // Açık yeşil vurgu
-    fontSize: width * 0.042,
-    fontWeight: '600',
-  },
+  }
 })

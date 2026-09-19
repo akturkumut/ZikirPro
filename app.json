@@ -51,6 +51,10 @@
     "extra": {
       "expo-navigation-bar": {
         "hidden": true
+      },
+      "router": {},
+      "eas": {
+        "projectId": "6885c646-4c40-4cf2-ba87-ca64916bce76"
       }
     }
   }

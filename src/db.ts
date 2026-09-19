@@ -119,7 +119,3 @@ export const updateCount = (id: number, newCount: number): boolean => {
 };
 // modül ilk import edildiğinde bir kez çalışır
 initDatabase();
-
-export const dropDb = () => {
-    db.execSync(`DROP TABLE zikir_logs`);
-}
