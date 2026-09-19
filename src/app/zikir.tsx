@@ -1,9 +1,11 @@
 import { getAllRowsNoFav, updateCount, ZikirLog } from '@/db';
 import { ImageBackground } from 'expo-image';
+import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function zikir() {
+  const { id } = useLocalSearchParams<{ id?: string }>();
   const [zikirler, setZikirler] = useState<ZikirLog[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -12,8 +14,13 @@ export default function zikir() {
 
   if (rows && rows.length > 0) {
     setZikirler(rows);
+    
+    if (id) {
+      const i = rows.findIndex(r => r.id === Number(id));
+      if (i >= 0) setCurrentIndex(i);
+    }
   }
-}, []);
+}, [id]);
 
   const controlledDecrementIndex = () => {
     if(currentIndex == 0){
@@ -70,7 +77,8 @@ const handleZikirAzalt = () => updateZikirCount(-1);
         <Text style={{fontSize:32}}>{zikirler[currentIndex].name}</Text>
       </View>
       <View style={[styles.card,{margin:24, marginTop:36, justifyContent:'center'}]}>
-        <Text style={{fontSize: 26}}>{zikirler[currentIndex].count}/{zikirler[currentIndex].target_count}</Text>
+          <Text style={{fontSize: 26}}>{zikirler[currentIndex].count}{zikirler[currentIndex].target_count ? `/${zikirler[currentIndex].target_count}` : ''}
+          </Text>
       </View>
 
       <View style={[styles.cardx, {width:'100%', height:'40%',justifyContent:'space-between'}]}>

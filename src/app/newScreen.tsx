@@ -14,12 +14,12 @@ export default function newScreen() {
       return;
     }
     Keyboard.dismiss();
-    const ustSinirSayi = Number(ustSinir) || null;
-    // Zikir kaydetme işlemi...
+    const ustSinirSayi = parseInt(ustSinir, 10);
+
     const insertedId = addRow({
-      name: zikirName,
+      name: zikirName.trim(),
       count: 0,
-      target_count: ustSinirSayi,
+      target_count: ustSinirSayi > 0 ? ustSinirSayi : null,
       description: fazilet.trim() || null,
     });
 
@@ -28,7 +28,7 @@ export default function newScreen() {
       setZikirName('');
       setUstSinir('');
       setFazilet('');
-      console.log("Kaydedildi");
+      Alert.alert('Kaydedildi', 'Zikir eklendi.');
     }
   };
 
@@ -44,12 +44,13 @@ export default function newScreen() {
       onChangeText={(val)=>{setZikirName(val)}}
       />
       <TextInput
-      style={styles.input}
-      value={ustSinir}
-      placeholder='Üst Sınır'
-      placeholderTextColor={'#ffffff'}
-      inputMode='decimal'
-      onChangeText={(val)=>{setUstSinir(val)}}
+        style={styles.input}
+        value={ustSinir}
+        placeholder='Üst Sınır'
+        placeholderTextColor={'#ffffff'}
+        inputMode='numeric'
+        maxLength={9}
+        onChangeText={(val) => setUstSinir(val.replace(/[^0-9]/g, ''))}
       />
       <TextInput
       style={styles.fazilet}

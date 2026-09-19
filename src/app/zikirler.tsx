@@ -1,11 +1,12 @@
 import { ImageBackground } from 'expo-image';
-import { useFocusEffect } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { deleteRow, getAllRows, toggleFavorite, ZikirLog } from '../db';
 
 
 export default function ZikirlerScreen() {
+  const router = useRouter();
   const [zikirler, setZikirler] = useState<ZikirLog[]>([]);
 
   const yukle = useCallback(() => {
@@ -27,7 +28,7 @@ export default function ZikirlerScreen() {
   };
 
   const renderItem = ({ item }: { item: ZikirLog }) => (
-    <Pressable style={styles.card} onPress={() => {}} onLongPress={() => createTwoButtonAlert(item.id)}>
+    <Pressable style={styles.card} onPress={() => router.push({ pathname: '/zikir', params: { id: item.id } })} onLongPress={() => createTwoButtonAlert(item.id)}>
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{item.name}</Text>
         {item.description ? <Text style={styles.desc}>{item.description}</Text> : null}
@@ -62,7 +63,7 @@ export default function ZikirlerScreen() {
         <TouchableOpacity onPress={informAlert} style={{width:44, height:44,borderRadius: 22,backgroundColor:'rgba(255,255,255,0.15)', borderWidth:1, borderColor:'rgba(255,255,255,0.4)', alignItems:'center', justifyContent:'center'}}><Text style={{color:'white', fontSize:24}}>?</Text></TouchableOpacity>
       </View>
 
-      <View style= {{flexDirection: 'row'}}>
+      <View style={{ flex: 1 }}>
         <FlatList
               data={zikirler}
               keyExtractor={item => item.id.toString()}
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  list: {padding: 16, flexGrow: 1 },
+  list: { padding: 16, paddingBottom: 68, flexGrow: 1 },
   card: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 16,
           backgroundColor: 'rgba(255,255,255,0.15)', borderWidth:1, borderColor:'rgba(255,255,255,0.4)', borderRadius: 12, marginBottom:16 },
   name: { color: 'white' ,fontSize: 16, fontWeight: '600' },

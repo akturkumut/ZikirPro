@@ -23,7 +23,7 @@ export const initDatabase = () : void => {
             description TEXT,
             is_favorite INTEGER NOT NULL DEFAULT 0,
             favourited_at DATETIME,
-            updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
         );
     `);
         console.log('Veritabanı başarıyla başlatıldı.');
