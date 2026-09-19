@@ -1,56 +1,97 @@
-# Welcome to your Expo app 👋
+# ZikirPro 📿
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+React Native ve Expo ile geliştirilmiş, internet gerektirmeden çalışan basit bir **zikir sayacı** uygulaması. Zikirlerini oluştur, hedef belirle, tek dokunuşla say ve ilerlemeni cihazında sakla.
 
-## Get started
+<!-- Ekran görüntülerini eklemek için: assets/screenshots/ klasörüne koyup aşağıdaki gibi bağlayabilirsin
+<p align="center">
+  <img src="assets/screenshots/ana-sayfa.png" width="200" />
+  <img src="assets/screenshots/zikir-cek.png" width="200" />
+  <img src="assets/screenshots/zikirlerim.png" width="200" />
+</p>
+-->
 
-1. Install dependencies
+## Özellikler
 
-   ```bash
-   npm install
-   ```
+- **Zikir oluşturma:** Ad, üst sınır (hedef) ve isteğe bağlı fazilet/açıklama ile yeni zikir ekle.
+- **Zikir çekme:** Büyük yuvarlak butonla say, gerekirse **Azalt** ile bir geri al. Sayaç 0'ın altına düşmez.
+- **Zikirler arası geçiş:** `<` ve `>` butonlarıyla zikirler arasında dön.
+- **Toplu ekleme:** Daha önce çektiğin zikirleri sayı girerek tek seferde ekle.
+- **Zikirlerim listesi:** Tüm zikirlerini ilerleme durumuyla (`count / hedef`) gör.
+- **Favoriler:** Yıldıza dokunarak zikri favorile, favoriler listenin en üstünde görünür.
+- **Kartla başlama:** Listedeki karta dokun, o zikirden çekmeye başla.
+- **Silme:** Karta uzun basıp onaylayarak zikri sil.
+- **Çevrimdışı:** Veriler cihazdaki yerel SQLite veritabanında tutulur, hesap veya internet gerekmez.
 
-2. Start the app
+## Kullanılan Teknolojiler
 
-   ```bash
-   npx expo start
-   ```
+| Alan | Teknoloji |
+| --- | --- |
+| Framework | [React Native](https://reactnative.dev/) + [Expo](https://expo.dev/) |
+| Dil | TypeScript |
+| Yönlendirme | [Expo Router](https://docs.expo.dev/router/introduction) (dosya tabanlı) |
+| Veritabanı | [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) |
+| Derleme | [EAS Build](https://docs.expo.dev/build/introduction/) |
 
-In the output, you'll find options to open the app in a
+## Kurulum
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Gereksinimler: [Node.js](https://nodejs.org/) (LTS) ve bir Android/iOS cihaz veya emülatör.
 
 ```bash
-npm run reset-project
+# Depoyu klonla
+git clone https://github.com/akturkumut/ZikirPro.git
+cd ZikirPro
+
+# Bağımlılıkları yükle
+npm install
+
+# Uygulamayı başlat
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Çıkan QR kodu [Expo Go](https://expo.dev/go) ile okutabilir veya terminalden `a` tuşuyla Android emülatöründe açabilirsin.
 
-### Other setup steps
+## APK Oluşturma
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Projede EAS Build yapılandırılmıştır (`eas.json`). Telefona doğrudan kurulabilir bir APK almak için:
 
-## Learn more
+```bash
+npm install -g eas-cli
+eas login
+eas build --platform android --profile preview
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Build bitince terminalde verilen bağlantıdan `.apk` dosyasını indirip telefona kurabilirsin.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+> Not: `production` profili Google Play için `.aab` çıktısı üretir, telefona doğrudan kurulmaz.
 
-## Join the community
+## Veritabanı
 
-Join our community of developers creating universal apps.
+Uygulama tek bir tablo kullanır: `zikir_logs`
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+| Sütun | Açıklama |
+| --- | --- |
+| `id` | Otomatik artan birincil anahtar |
+| `name` | Zikir adı |
+| `count` | Şu ana kadar çekilen sayı |
+| `target_count` | Hedef sayı (boş olabilir) |
+| `description` | Fazilet / açıklama (boş olabilir) |
+| `is_favorite` | Favori durumu (0 veya 1) |
+| `favourited_at` | Favorilenme zamanı |
+| `updated_at` | Son güncelleme zamanı (ISO 8601) |
+
+Tablo, uygulama ilk açıldığında otomatik oluşturulur.
+
+## Yol Haritası
+
+- [ ] Zikir düzenleme
+- [ ] Hedefe ulaşınca titreşim/bildirim
+- [ ] Günlük istatistikler
+- [ ] Yedekleme ve geri yükleme
+
+## Lisans
+
+Bu proje [MIT](LICENSE) lisansı ile paylaşılmaktadır.
+
+## İletişim
+
+Geliştirici: [@akturkumut](https://github.com/akturkumut)
